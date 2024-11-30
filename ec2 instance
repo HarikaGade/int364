@@ -17,4 +17,150 @@ systemctl enable httpd.service
 11)ADD INBOUNDRULE
 12)SELECT CUSTOM TCP,PORT 80,SOURCE ANYWHERE1PV4.
 13)ADD RULE
------------------------
+---------------------------------------------------------------------------
+Host a static website by using Amazon S3.  Implement one way to protect your data with Amazon S3.  Implement a data lifecycle strategy in Amazon S3. 
+1)Go to the Amazon S3 Console.
+2)Click Create bucket.
+3)Bucket name: harika
+4)Uncheck "Block all public access" to allow public access for your static website.
+5)Click Create bucket.
+6)Open your bucket.
+7)Click Upload and add your website files (e.g., index.html, style.css).
+create file with index.html name and add content in it then upload to s3 bucket 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Static Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h2>Home</h2>
+            <p>This is a simple static website hosted on Amazon S3.</p>
+        </section>
+        <section id="about">
+            <h2>About</h2>
+            <p>This website is an example of how you can use S3 to host static content.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: example@example.com</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Static Website</p>
+    </footer>
+</body>
+</html>
+-------------------------------------------------------------------------
+create file with this name style.css and add below content to it and then add this file to s3 bucket 
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: #0073e6;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Section Styles */
+section {
+    margin: 20px;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    margin-top: 20px;
+}
+8)Click Upload to complete.
+Enable Static Website Hosting:
+9)Go to the Properties tab of your bucket.
+10)Scroll to Static website hosting and click Edit.
+11)Select Enable.
+12)Specify the index document (e.g., index.html).
+13)Save the changes.
+Make Files Public:
+14)Go to the Permissions tab, then Bucket Policy.
+15)Add this policy (replace your-bucket-name with your bucket name):
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
+16)Access Your Website:
+17)Return to the Properties tab.
+18)Under Static website hosting, note the Endpoint URL.
+19)Open this URL to view your website.
+-----------------------------------------------------------------------------
+Implement a Data Lifecycle Strategy in Amazon S3
+20)Create a Lifecycle Rule:
+21)Go to the Management tab of your bucket.
+22)Click Lifecycle rules and then Create lifecycle rule.
+23)Provide a name (e.g., move-to-glacier).
+Define Rule Scope:
+Choose to apply the rule to the entire bucket or specific prefixes/tags.
+Configure Transition Actions:
+Add a Transition action to move objects to lower-cost storage classes:
+E.g., Move to S3 Glacier after 30 days.
+(Optional) Configure expiration to delete objects after a specified time.
+Review and Save:
+Review the rule configuration.
+Click Save.
+--------------------------------------------------------------------------------
+
