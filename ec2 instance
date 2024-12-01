@@ -163,4 +163,154 @@ Review and Save:
 Review the rule configuration.
 Click Save.
 --------------------------------------------------------------------------------
+creation of virtual private cloud(vpc)
+1)in search box search vpc
+2)click on create vpc
+3)give name to vpc (example:harika )
+4)IPv4 CIDR: Enter 10.0.0.0/16.
+5)leave all settings as default and click on create vpc 
+6)your vpc is create successfully
+------------------------------------------------------------------------------------
+after creation of vpc if we want to edit configuration then 
+7)Choose Actions, and choose Edit VPC settings.
+8)For DNS settings, select Enable DNS hostnames.
+9)Choose Save.
+CREATION OF SUBNETS
+CREATING PUBLIC SUBNET
+1)In the left navigation pane, choose Subnets.
+2)Choose Create subnet.
+3)FOR VPC ID:SELECT VPC WHICH U CREATED (CAUSE WE ARE CREATING SUBNETS IN IT SO)
+4)SUBNET NAME:ANY(EX:public subnet)
+5)Availability Zone: Choose the first Availability Zone in the list.
+6)IPv4 subnet CIDR block: Enter 10.0.0.0/24.
+7)click create subnet
+-------------------------------------------------------------------------------
+after creation of public subnet if we want to edit then 
+8)Choose Actions, and then choose Edit subnet settings.
+9)On the Edit subnet settings page, for Auto-assign IP settings, select Enable auto-assign public IPv4 address.
+then click save your changes saved
+--------------------------------------------------------------------------------
+CREATION OF PRIVATE SUBNET
+1)In the left navigation pane, choose Subnets.
+2)Choose Create subnet.
+3)FOR VPC ID:SELECT VPC WHICH U CREATED (CAUSE WE ARE CREATING SUBNETS IN IT SO)
+4)name:(ex:private subnets)
+5)Availability Zone: Choose the first Availability Zone in the list.
+6)IPv4 subnet CIDR block: Enter 10.0.2.0/23.
+click on create ,your subnet is created successfully
+------------------------------------------------------------------------------------------
+Creating an internet gateway
+1)In the left navigation pane, choose Internet gateways.
+2)Choose Create internet gateway.
+3)nametag:internetgateway
+4)Choose Create internet gateway.
+gateway created successfully
+You can now attach the internet gateway to your VPC.
+5)Choose Actions, and then choose Attach to VPC.
+6)For Available VPCs, choose your VPC
+----------------------------------------------------------------------------------------------
+Configuring route tables
+1)In the left navigation pane, choose Route tables.
+2)select routetable that shows your vpc name
+3)In the Name column, choose the edit icon , and for Edit Name, enter Private Route Table.
+4)click save
+5)Choose the Routes tab.
+You now create a new public route table to send public traffic to the internet gateway.
+1)Choose Create route table, and configure these settings:
+2)Name - optional: Enter Public Route Table.
+3)VPC: Choose your VPC.
+4)Choose Create route table.
+5)In the Routes tab, choose Edit routes.
+6)Choose Add route, then configure these settings:
+7)Destination: Enter 0.0.0.0/0.
+8)Target: Choose Internet Gateway and then, from the list, choose your Internetgateway.
+9)click on save changes
+Next, you associate this new route table with the public subnet.
+10)Choose the Subnet associations tab.
+11)Choose Edit subnet associations.
+12)Select the row with Public Subnet.
+13)Choose Save associations.
+-------------------------------------------------------------------------------------------------
+Creating a security group for the application server
+1)In the left navigation pane, choose Security groups.
+2)Choose Create security group.
+3)Security group name: securitygroup.
+4)Description: Enter Allow HTTP traffic.
+5)vpc:choose your vpc
+6)In the Inbound rules section, choose Add rule, and then configure the following options:
+7)Type: Choose HTTP.
+8)Source: Choose Anywhere-IPv4.
+9)Description - optional: Enter Allow web access.
+10)create security group
+--------------------------------------------------------------------------------------------------
+Task 6: Launching an application server in the public subnet
+To test that your VPC is correctly configured, you now launch an EC2 instance into the public subnet. You also confirm that you can access the EC2 instance from the internet.
+On the AWS Management Console, in the search box, enter and choose EC2 to open the Amazon EC2 console.
+1)Choose Launch instance.
+2)For Name, enter App Server.
+3)In the Application and OS Images (Amazon Machine Image) section, configure the following options:
+4)For  Quick Start, keep the default Amazon Linux option. 
+5)For Amazon Machine Image (AMI), keep the default Amazon Linux 2023 AMI option.
+6)In the Instance type section, keep the default t2.micro option.
+For Key pair name - required, choose vockey.
+In the Network settings section, choose Edit, and then configure the following options: 
+6)For VPC - required, choose your VPC.
+7)For Subnet, choose Public Subnet.
+8)For Firewall (security groups), choose Select existing security group.
+9)For Common security groups, choose App-SG.
+10)In the Configure storage section, keep the default settings.
+11)Expand the Advanced details panel, and for IAM instance profile, choose Inventory-App-Role.
+
+This role, which was created when you provisioned the lab, is required for the application to access the database credentials securely stored in AWS Secrets Manager.
+
+In the User data box, copy and paste the following code:
+
+#!/bin/bash
+# Install Apache Web Server and PHP
+dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
+dnf install -y mariadb105-server
+# Download Lab files
+wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACACAD-3-113230/06-lab-mod7-guided-VPC/s3/scripts/al2023-inventory-app.zip -O inventory-app.zip
+unzip inventory-app.zip -d /var/www/html/
+# Download and install the AWS SDK for PHP
+wget https://docs.aws.amazon.com/aws-sdk-php/v3/download/aws.zip
+unzip aws.zip -d /var/www/html
+# Turn on web server
+systemctl enable httpd
+systemctl start httpd
+In the Summary section, choose Launch instance.
+You should see a Success message.
+Choose the link to the new instance that you created. 
+Wait until the App Server instance shows 2/2 checks passed in the Status check column.
+This might take a few minutes. Choose the refresh  icon at the top of the page every 30 seconds or so to check the status of the instance.
+Select App Server.
+From the Details tab, copy the Public IPv4 DNS value.
+Open a new web browser tab, and enter this public IPv4 DNS value.
+If you configured the VPC correctly, the Inventory application and this message should appear: Please configure Settings to connect to database. The appearance of the Inventory application demonstrates that the public subnet was correctly configured.
+If the Inventory application does not appear, wait 60 seconds and refresh  the page to try again. It can take a couple of minutes for the EC2 instance to boot and run the script that installs the software.
+----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
