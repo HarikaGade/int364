@@ -1,4 +1,4 @@
-EC2 INSTANCE
+TASK1:EC2 INSTANCE
 1)CLICK EC2 IN CONSOLE
 2)CLICK LAUNCH INSTANCE
 3)GIVE NAME OF INSTANCE
@@ -18,7 +18,8 @@ systemctl enable httpd.service
 12)SELECT CUSTOM TCP,PORT 80,SOURCE ANYWHERE1PV4.
 13)ADD RULE
 ---------------------------------------------------------------------------
-Host a static website by using Amazon S3.  Implement one way to protect your data with Amazon S3.  Implement a data lifecycle strategy in Amazon S3. 
+---------------------------------------------------------------------------
+TASK2:Host a static website by using Amazon S3.  Implement one way to protect your data with Amazon S3.  Implement a data lifecycle strategy in Amazon S3. 
 1)Go to the Amazon S3 Console.
 2)Click Create bucket.
 3)Bucket name: harika
@@ -163,7 +164,8 @@ Review and Save:
 Review the rule configuration.
 Click Save.
 --------------------------------------------------------------------------------
-creation of virtual private cloud(vpc)
+-------------------------------------------------------------------------------
+TASK3:creation of virtual private cloud(vpc)
 1)in search box search vpc
 2)click on create vpc
 3)give name to vpc (example:harika )
@@ -289,6 +291,51 @@ Open a new web browser tab, and enter this public IPv4 DNS value.
 If you configured the VPC correctly, the Inventory application and this message should appear: Please configure Settings to connect to database. The appearance of the Inventory application demonstrates that the public subnet was correctly configured.
 If the Inventory application does not appear, wait 60 seconds and refresh  the page to try again. It can take a couple of minutes for the EC2 instance to boot and run the script that installs the software.
 ----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+TASK4:Creating an Amazon RDS Database
+1)search for rds in search box
+2)choose create data base
+3)Under Engine options, select MySQL.
+4)Under the Templates section, select  Dev/Test.
+5)Under the Availability and durability section, select   Single DB instance 
+6)under setting section give DB instance identifier: any(ex:harika)
+7)Under Credentials management, choose Self managed
+Master password: lab-password
+Confirm master password: lab-password
+8)Under the Instance configuration section, configure these options:
+Select Burstable classes (includes t classes).
+Select db.t3.micro
+9)In the Storage section next
+For Storage type choose General Purpose SSD (gp2),allocate storage=20
+10)Expand Storage autoscaling 
+Clear or Deselect Enable storage autoscaling.
+11)connectivity section keep as default
+12)Under Monitoring section, Clear (turn off) the Enable Enhanced monitoring option
+13)in Additional configuration panel, give name to database:any(ex:harika)
+14)click on create database
+15)sucessfully database is created.
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Task 5: Creating a NAT gateway
+In this task, you create a NAT gateway, which enables resources in the Private Subnet to connect to the internet.
+1)click on create nat gateway
+2)Name - optional: Enter Lab NAT Gateway.
+3)Subnet: Choose Public Subnet.
+4)Elastic IP allocation ID: Choose Allocate Elastic IP.
+then click on create .After this 
+Create a new route table that has the following options:
+5)go to route tables and click on create route tables
+6)Name - optional: Enter Private Route Table.
+7)VPC: Chose your VPC or default vpc.
+8)Attach this route table to the Private Subnet that you created earlier using the following options: 
+Destination: Enter 0.0.0.0/0.
+Target: Choose NAT Gateway.
+--------------------------------------------------------------
+---------------------------------------------------------------
+TASK 6)VPC PEERING 
+
+
+
 
 
 
