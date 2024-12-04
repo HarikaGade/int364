@@ -360,18 +360,19 @@ You will now update the route tables in both VPCs to send traffic from Lab VPC t
 done sucessfully we eatablished vpc peering among 2 vpcs
 -----------------------------------------------------------------------
 ------------------------------------------------------------------------
-Question asked in etp 
-Design high traffic website on aws,website experience unpredictable traffic spikes due to breaking news with some article goes viral, for this solution must ensure high availability,automatic scaling 
-1)Go to the EC2 Console.
-2)lauch instance
-Use Elastic Load Balancer (ELB) for High Availability
-3)Click Load Balancers > Create Load Balancer.
-4)Choose Application Load Balancer (ALB)
-then configure accordingly ,for creation of load balancer target group is must so we need to create that too 
-5)sucessfully created 
-Implement Auto Scaling for EC2 Instances
-6)Click Create Auto Scaling Group.
-7)then configure accordingly ,for creation of load balancer , template is must so we need to create that too 
+Task 2: Creating an Amazon CloudFront Distribution
+1)At the top of the AWS Management Console, in the search box, search for and choose CloudFront.
+2)Choose Create a CloudFront distribution.
+In the Origin section of the page, enter the following information:
+Choose the Origin domain field. A list of S3 buckets appears. Choose the one that was created earlier that has awstrainingreinvent as part of the file name.
+3)Leave Origin access as Public.
+4)Leave Enable Origin Shield as No.
+5)Leave all other fields at the default values.
+6)For Web Application Firewall (WAF), choose Do not enable security protections.
+7)The warning message under Custom SSL certificate - optional can be safely ignored (if shown).
+8)t the bottom of the page, choose Create Distribution.
+
+
 
 
 
