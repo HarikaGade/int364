@@ -333,8 +333,45 @@ Target: Choose NAT Gateway.
 --------------------------------------------------------------
 ---------------------------------------------------------------
 TASK 6)VPC PEERING 
-
-
+to perform this we need atleast 2 vpcs so that we can peer them 
+Firstly create 2 vpcs
+1)SEARCH FOR VPC IN SEARCH BOX
+go to yourvpc tab,then create vpc with name: requester,subnet10.0.0.0/16
+create another vpc with name:accepter,subnet10.2.0.0/24
+2)In the left navigation pane, choose Peering connections. 
+3)Choose Create peering connection
+4)name:peering
+5)vpc id requester:requester
+6)vpc id accepter:accepter
+7)click on create peering connection
+8)sucessfully connection established
+9)from the Actions dropdown list, choose Accept request.
+Configuring route tables
+You will now update the route tables in both VPCs to send traffic from Lab VPC to the peering connection for Shared VPC.
+10)In the left navigation pane, choose Route Tables.
+11)select requester routetable
+12)in routes tab click edit routes
+13)destination:10.2.0.0/24
+14)target:peering connection,select peering click save changes
+15)again go to routables and click on accepter routetable
+16)in routes tab of accepter click edit routes
+17)destination:10.0.0.0/16
+14)target:peering connection,select peering click save changes
+done sucessfully we eatablished vpc peering among 2 vpcs
+-----------------------------------------------------------------------
+------------------------------------------------------------------------
+Question asked in etp 
+Design high traffic website on aws,website experience unpredictable traffic spikes due to breaking news with some article goes viral, for this solution must ensure high availability,automatic scaling 
+1)Go to the EC2 Console.
+2)lauch instance
+Use Elastic Load Balancer (ELB) for High Availability
+3)Click Load Balancers > Create Load Balancer.
+4)Choose Application Load Balancer (ALB)
+then configure accordingly ,for creation of load balancer target group is must so we need to create that too 
+5)sucessfully created 
+Implement Auto Scaling for EC2 Instances
+6)Click Create Auto Scaling Group.
+7)then configure accordingly ,for creation of load balancer , template is must so we need to create that too 
 
 
 
